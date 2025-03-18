@@ -169,3 +169,4 @@ app.log
 ERD.jpg
 test.py
 */
+.DS_Store
