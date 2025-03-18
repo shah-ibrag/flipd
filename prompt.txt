@@ -1,0 +1,30 @@
+Please help me extract information from the following parsing result. You can also normalize it for yourself.
+
+:prompt:
+
+Instructions:
+1. Extract the username mentioned in the listing. If the username is hidden with asterisks, skip this listing and return a message saying "Username hidden".
+
+2. Extract the price or prices mentioned in the listing. This could be in the form of a "Buy It Now" (BIN) price, a "Current Offer" (C/O), or both. If no price information is available, return "Price not available".
+
+3. Extract additional relevant information from the listing and include it in a description field. This may include:
+   - OGE (Original Email) status
+   - Number linked status
+   - Account type (e.g., creator, business, personal)
+   - Any other important details you deem relevant
+
+4. Organize the names of fields and extracted information in the following format:
+   Username: [extracted username]
+   Price:
+     BIN: [extracted BIN price, if available]
+     C/O: [extracted C/O price, if available]
+   Description:
+     OGE Status: [extracted OGE status]
+     Number Linked Status: [extracted number linked status]
+     Account Type: [extracted account type]
+     Additional Details: [any other relevant information]
+
+5. If any of the requested information is not available in the listing, use "N/A" for that field.
+
+Please provide the analyzed information in the format mentioned in the fourth step for each username
+Return the result in json. Make it nested if there are multiple usernames
