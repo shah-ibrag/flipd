@@ -1,5 +1,6 @@
 import logging
 from time import sleep
+from random import randint
 from config_reader import login_credentials
 
 logging.basicConfig(level=logging.INFO)
@@ -22,6 +23,7 @@ def login(page):
 
 def total_pages(page):
     last_page = '//a[@class="pagination_last"]'
+    page.goto('https://oguser.com/Forum-OG-Instagram-Usernames')
     page.wait_for_selector('xpath=' + last_page)
     total_pages = page.query_selector('xpath=' + last_page).inner_text()
     return int(total_pages)
@@ -44,7 +46,7 @@ def extract_links(page, tbody_xpath):
 def save_links_to_file(links, filename):
     with open(filename, 'a') as f:
         for link in links:
-            f.write("oguser.com/" + link + '\n')
+            f.write("https://oguser.com/" + link + '\n')
 
 def post_body(page, link):
     page.goto(link)
@@ -52,3 +54,12 @@ def post_body(page, link):
     page.wait_for_selector('xpath=' + post_body_xpath)
     post_body = page.query_selector('xpath=' + post_body_xpath).inner_text()
     return post_body
+
+def scrape_all_links(page):
+    page_number = 1
+    total_pages_count = total_pages(page)
+    for page_number in range(1, total_pages_count + 1):
+        page.goto(f'https://oguser.com/Forum-OG-Instagram-Usernames?page={page_number}')
+        links = extract_links(page, '//*[@id="noa-transition"]/table/tbody')
+        save_links_to_file(links, 'links.txt')
+        sleep(randint(1, 5))
